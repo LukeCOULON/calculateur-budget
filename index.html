@@ -14,13 +14,13 @@
       <button onclick="setRevenu()">Définir le budget</button>
     </div>
     <div id="expense-section" style="display:none;">
-      <input type="text" id="description" placeholder="Description de la dépense">
-      <input type="number" id="montant" placeholder="Montant">
-      <button onclick="ajouterDepense()">Ajouter Dépense</button>
+      <h2>Dépenses Prédéfinies</h2>
+      <ul id="expense-list"></ul>
+      <canvas id="expense-chart"></canvas>
     </div>
     <div id="solde">Solde restant : 0</div>
-    <ul id="liste-depenses"></ul>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
