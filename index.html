@@ -9,18 +9,24 @@
 <body>
   <div class="container">
     <h1>Calculateur de Budget</h1>
-    <div id="budget-section">
-      <input type="number" id="revenu" placeholder="Entrez vos revenus mensuels">
-      <button onclick="setRevenu()">Définir le budget</button>
+    <div id="form-section">
+      <label for="revenu">Revenu Mensuel (€):</label>
+      <input type="number" id="revenu" placeholder="Entrez votre revenu">
+      <label for="enfants">Nombre d'enfants:</label>
+      <input type="number" id="enfants" placeholder="Entrez le nombre d'enfants">
+      <label for="aides">Aides sociales mensuelles (€):</label>
+      <input type="number" id="aides" placeholder="Entrez le montant des aides">
+      <label for="credits">Remboursements de crédits mensuels (€):</label>
+      <input type="number" id="credits" placeholder="Entrez le montant des crédits">
+      <button onclick="calculerBudget()">Calculer le Budget</button>
     </div>
-    <div id="expense-section" style="display:none;">
-      <h2>Dépenses Prédéfinies</h2>
-      <ul id="expense-list"></ul>
-      <canvas id="expense-chart"></canvas>
+    <div id="result-section" style="display:none;">
+      <h2>Répartition du Budget</h2>
+      <ul id="repartition"></ul>
+      <p id="totalDepenses"></p>
+      <p id="solde"></p>
     </div>
-    <div id="solde">Solde restant : 0</div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
