@@ -6,7 +6,7 @@ body {
 }
 
 .container {
-  max-width: 600px;
+  max-width: 800px;
   margin: auto;
   background-color: white;
   padding: 20px;
@@ -14,7 +14,7 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-input[type="number"], input[type="text"] {
+input[type="number"] {
   width: calc(100% - 22px);
   padding: 10px;
   margin: 10px 0;
@@ -57,17 +57,4 @@ li {
 
 li span {
   font-weight: bold;
-}
-
-li button {
-  background-color: #dc3545;
-  border: none;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-li button:hover {
-  background-color: #c82333;
 }
