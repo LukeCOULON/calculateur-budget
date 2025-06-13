@@ -19,7 +19,7 @@ function calculerBudget() {
   const autres = revenu * 0.10;
 
   // Ajustements en fonction des enfants
-  const depensesEnfants = enfants * 100; // Exemple : 100 € par enfant
+  const depensesEnfants = enfants * 100;
 
   // Calcul du total des dépenses
   const totalDepenses = logement + alimentation + transports + sante + loisirs + epargne + autres + depensesEnfants + credits - aides;
@@ -41,6 +41,36 @@ function calculerBudget() {
   `;
   document.getElementById('totalDepenses').textContent = `Total des Dépenses: ${totalDepenses.toFixed(2)} €`;
   document.getElementById('solde').textContent = `Solde restant: ${(revenu - totalDepenses).toFixed(2)} €`;
+
+  // Affichage du graphique
+  const ctx = document.getElementById('budgetChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['Logement', 'Alimentation', 'Transports', 'Santé', 'Loisirs', 'Épargne', 'Autres', 'Enfants', 'Crédits', 'Aides sociales'],
+      datasets: [{
+        label: 'Répartition des Dépenses',
+        data: [logement, alimentation, transports, sante, loisirs, epargne, autres, depensesEnfants, credits, -aides],
+        backgroundColor: ['#ff9999', '#66b3ff', '#99ff99', '#ffcc99', '#c2c2f0', '#ffb3e6', '#c2f0c2', '#ff6666', '#c2f0f0', '#ffb366'],
+        hoverOffset: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        tooltip: {
+          callbacks: {
+            label: function(tooltipItem) {
+              return tooltipItem.label + ': ' + tooltipItem.raw.toFixed(2) + ' €';
+            }
+          }
+        }
+      }
+    }
+  });
 
   resultSection.style.display = 'block';
 }
