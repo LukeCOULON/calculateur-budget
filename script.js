@@ -1,58 +1,46 @@
-const categories = [
-  { name: 'Logement', percentage: 30 },
-  { name: 'Alimentation', percentage: 15 },
-  { name: 'Transports', percentage: 10 },
-  { name: 'Loisirs', percentage: 5 },
-  { name: 'Épargne', percentage: 10 },
-  { name: 'Autres', percentage: 30 }
-];
+function calculerBudget() {
+  const revenu = parseFloat(document.getElementById('revenu').value);
+  const enfants = parseInt(document.getElementById('enfants').value);
+  const aides = parseFloat(document.getElementById('aides').value);
+  const credits = parseFloat(document.getElementById('credits').value);
 
-let revenu = 0;
-
-function setRevenu() {
-  revenu = parseFloat(document.getElementById('revenu').value);
   if (isNaN(revenu) || revenu <= 0) {
-    alert("Veuillez entrer un montant valide pour les revenus.");
+    alert("Veuillez entrer un revenu valide.");
     return;
   }
-  document.getElementById('budget-section').style.display = 'none';
-  document.getElementById('expense-section').style.display = 'block';
-  afficherDepenses();
-  afficherSolde();
-}
 
-function afficherDepenses() {
-  const expenseList = document.getElementById('expense-list');
-  expenseList.innerHTML = '';
-  categories.forEach(cat => {
-    const montant = (revenu * cat.percentage / 100).toFixed(2);
-    const li = document.createElement('li');
-    li.innerHTML = `${cat.name} : ${montant} €`;
-    expenseList.appendChild(li);
-  });
-  afficherGraphique();
-}
+  // Dépenses de base
+  const logement = revenu * 0.30;
+  const alimentation = revenu * 0.15;
+  const transports = revenu * 0.10;
+  const sante = revenu * 0.05;
+  const loisirs = revenu * 0.05;
+  const epargne = revenu * 0.10;
+  const autres = revenu * 0.10;
 
-function afficherSolde() {
-  const totalDepenses = categories.reduce((total, cat) => total + (revenu * cat.percentage / 100), 0);
-  const solde = revenu - totalDepenses;
-  const soldeElement = document.getElementById('solde');
-  soldeElement.textContent = `Solde restant : ${solde.toFixed(2)} €`;
-  soldeElement.style.color = solde >= 0 ? 'green' : 'red';
-}
+  // Ajustements en fonction des enfants
+  const depensesEnfants = enfants * 100; // Exemple : 100 € par enfant
 
-function afficherGraphique() {
-  const ctx = document.getElementById('expense-chart').getContext('2d');
-  const labels = categories.map(cat => cat.name);
-  const data = categories.map(cat => revenu * cat.percentage / 100);
-  new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: labels,
-      datasets: [{
-        data: data,
-        backgroundColor: ['#ff9999', '#66b3ff', '#99ff99', '#ffcc99', '#c2c2f0', '#ffb3e6']
-      }]
-    }
-  });
+  // Calcul du total des dépenses
+  const totalDepenses = logement + alimentation + transports + sante + loisirs + epargne + autres + depensesEnfants + credits - aides;
+
+  // Affichage des résultats
+  const resultSection = document.getElementById('result-section');
+  const repartitionUl = document.getElementById('repartition');
+  repartitionUl.innerHTML = `
+    <li>Logement: ${logement.toFixed(2)} €</li>
+    <li>Alimentation: ${alimentation.toFixed(2)} €</li>
+    <li>Transports: ${transports.toFixed(2)} €</li>
+    <li>Santé: ${sante.toFixed(2)} €</li>
+    <li>Loisirs: ${loisirs.toFixed(2)} €</li>
+    <li>Épargne: ${epargne.toFixed(2)} €</li>
+    <li>Autres: ${autres.toFixed(2)} €</li>
+    <li>Enfants: ${depensesEnfants.toFixed(2)} €</li>
+    <li>Crédits: ${credits.toFixed(2)} €</li>
+    <li>Aides sociales: -${aides.toFixed(2)} €</li>
+  `;
+  document.getElementById('totalDepenses').textContent = `Total des Dépenses: ${totalDepenses.toFixed(2)} €`;
+  document.getElementById('solde').textContent = `Solde restant: ${(revenu - totalDepenses).toFixed(2)} €`;
+
+  resultSection.style.display = 'block';
 }
