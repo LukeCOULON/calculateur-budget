@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculateur de Budget</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Calculateur de Budget</h1>
+    <div id="budget-section">
+      <input type="number" id="revenu" placeholder="Entrez vos revenus mensuels">
+      <button onclick="setRevenu()">Définir le budget</button>
+    </div>
+    <div id="expense-section" style="display:none;">
+      <input type="text" id="description" placeholder="Description de la dépense">
+      <input type="number" id="montant" placeholder="Montant">
+      <button onclick="ajouterDepense()">Ajouter Dépense</button>
+    </div>
+    <div id="solde">Solde restant : 0</div>
+    <ul id="liste-depenses"></ul>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
